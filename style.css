@@ -128,6 +128,11 @@ input[type=number] {
     color: var(--light-cyan);
 }
 
+.tipAmount.active {
+    background-color: var(--primary-color);
+    color: var(--dark-cyan);
+}
+
 .text-box {
     display: flex;
     justify-content: space-between;

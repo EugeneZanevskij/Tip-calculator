@@ -12,24 +12,16 @@ const totalResult = document.getElementById("totalPerPerson");
 //error
 const errorLabel = document.getElementById("people-error");
 
+//button on click becomes active and passes its value
 tipBtns.forEach(function(btn) {
     btn.addEventListener("click", function(e)  {
+        e.preventDefault();
+        tipBtns.forEach(function(button){
+            button.classList.remove("active");
+        });
+        e.target.classList.add("active");
         const tipPercentage = parseInt(e.target.dataset.tip)/100;
         calcTipForEveryone(tipPercentage);
-        // if (id) {
-        //     //buttons
-        //     tabBtns.forEach(function(tabBtn) {
-        //         tabBtn.classList.remove("active");
-        //     });
-        //     e.target.classList.add("active");
-    
-        //     //content
-        //     contents.forEach(function(content) {
-        //         content.classList.remove("active");
-        //     });
-        //     const element = document.getElementById(id);
-        //     element.classList.add("active");
-        // }
     });
 });
 
@@ -39,17 +31,30 @@ customTipPercentage.addEventListener("input",function(){
     calcTipForEveryone(tipPercentage);
 });
 
+//reset button resets inputs, buttons
 resetBtn.addEventListener("click", function() {
     document.getElementById("form").reset();
+    tipBtns.forEach(function(button){
+        button.classList.remove("active");
+    });
+    tipResult.innerText = `$0.00`;
+    totalResult.innerText = `$0.00`;
 })
 
-//functions
+//when clicking on input its value refreshes
+inputs.forEach(function(input) {
+    input.addEventListener("click", function(e)  {
+        e.target.value = "";
+    });
+});
+
+//function calculates tip
 function calcTipForEveryone(tipPercentage) {
     const billAmount = parseFloat(billAmountInput.value);
     const peopleNumber = parseInt(peopleNumberInput.value);
     if (billAmount && peopleNumber) {
-        errorLabel.classList.remove("error");
-        peopleNumberInput.classList.remove("error");
+      errorLabel.classList.remove("error");
+      peopleNumberInput.classList.remove("error");
       let totalAmount = (billAmount * (1 + tipPercentage)) / peopleNumber;
       totalAmount = Math.round(totalAmount * 100) / 100;
       let tipAmount = (billAmount * tipPercentage) / peopleNumber;
@@ -63,6 +68,3 @@ function calcTipForEveryone(tipPercentage) {
         peopleNumberInput.classList.add("error");
     }
 };
-
-//make buttons active
-//when resetting, reset total and tip results
