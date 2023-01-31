@@ -39,6 +39,8 @@ resetBtn.addEventListener("click", function() {
     });
     tipResult.innerText = `$0.00`;
     totalResult.innerText = `$0.00`;
+    errorLabel.classList.remove("error");
+    peopleNumberInput.classList.remove("error");
 })
 
 //when clicking on input its value refreshes
